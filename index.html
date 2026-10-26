@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3 Patti Show Analyzer</title>
+<style>
+body{background:#101827;color:white;font-family:Arial;text-align:center;padding:20px}
+h1{color:#facc15}
+button{padding:15px;margin:6px;border:0;border-radius:10px;font-size:18px}
+.d{background:#ef4444;color:white}
+.t{background:#3b82f6;color:white}
+.reset{background:#64748b;color:white}
+.panel{background:#1e293b;padding:20px;border-radius:15px;margin-top:20px}
+</style>
+</head>
+<body>
+<h1>3 PATTI SHOW</h1>
+<h2>Dragon Tiger Analyzer</h2>
+<p>Previous Results Analysis</p>
+<button class="d" onclick="add('D')">Dragon</button>
+<button class="t" onclick="add('T')">Tiger</button>
+<div class="panel">
+<h3 id="history">No results yet</h3>
+<p id="stats"></p>
+<p id="streak"></p>
+</div>
+<button class="reset" onclick="reset()">Reset</button>
+<p>For analysis only. Future results cannot be guaranteed.</p>
+<script>
+let results=[];
+function add(x){
+results.push(x);
+update();
+}
+function update(){
+let d=results.filter(x=>x==='D').length;
+let t=results.filter(x=>x==='T').length;
+document.getElementById('history').innerText=results.join(' ');
+document.getElementById('stats').innerText=
+'Dragon: '+d+' | Tiger: '+t;
+let last=results.at(-1),n=0;
+for(let i=results.length-1;i>=0;i--){
+if(results[i]===last)n++;else break;
+}
+document.getElementById('streak').innerText=
+'Current streak: '+last+' × '+n;
+}
+function reset(){
+results=[];
+document.getElementById('history').innerText='No results yet';
+document.getElementById('stats').innerText='';
+document.getElementById('streak').innerText='';
+}
+</script>
+</body>
+</html>
